@@ -1,0 +1,21 @@
+language: node_js #establece el lenguaje
+cache:   # maneja un sistema de cache
+  directories:
+    - node_modules
+    - ~/.npm
+node_js:
+  - '16' # establece una version particular de node con la cual va a trabajar
+git:
+  depth: 3 # va a entender todo nuestro repositorio sobre 3 niveles
+script:
+  - yarn build # va a generar un script
+deploy:
+  provider: pages # seria github pages quien seria encargado de hospedar esta pagina
+  skip_cleanup: true #se asegurará de que después de crear la carpeta que está intentando implementar, no se eliminará antes de que se implemente.
+  keep_history: true #asegurará que no se realice un empuje forzado.
+  github_token: $GITHUB_TOKEN
+  local_dir: dist/ # este es el resultante de la compilacion 
+  target_branch: gh-pages
+  commit_message: "Deploy del proyecto"
+  on:
+    branch: master
